@@ -1,0 +1,45 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd" >
+<mapper namespace="com.dao.CustomerMapper" >
+<resultMap type="com.pojo.Customer" id="BaseResultMap">
+<id column="ID" property="id" jdbcType="INTEGER"/>
+<result column="name" property="name" jdbcType="VARCHAR"/>
+<result column="phone" property="phone" jdbcType="VARCHAR"/>
+<result column="email" property="email" jdbcType="VARCHAR"/>
+<result column="sex" property="sex" jdbcType="INTEGER"/>
+</resultMap>
+
+<select id="selectByPage" parameterType="java.lang.String" resultMap="BaseResultMap">
+select * from customer 
+<where>
+<if test="search_name!=''">
+or name like '%${search_name}%'
+</if>
+<if test="search_phone!=''">
+or phone like '%${search_phone}%'
+</if>
+<if test="search_email!=''">
+or email like '%${search_email}%'
+</if>
+</where>
+
+</select>
+
+<select id="selectByoffset" parameterType="java.lang.String" resultMap="BaseResultMap">
+select * from customer 
+<where>
+<if test="search_name!=''">
+or name like '%${search_name}%'
+</if>
+<if test="search_phone!=''">
+or phone like '%${search_phone}%'
+</if>
+<if test="search_email!=''">
+or email like '%${search_email}%'
+</if>
+</where>
+<if test="order_words!=''">
+order by ${order_words}
+</if>
+</select>
+</mapper>
